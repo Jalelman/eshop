@@ -91,18 +91,19 @@ router.delete(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const event = await Event.findById(req.params.id);
-      console.log(event)
       if (!event) {
-        return next(new ErrorHandler("event is not found with this id", 404));
+        return next(new ErrorHandler("Event is not found with this id", 404));
       }    
 
-      for (let i = 0; 1 < event.images.length; i++) {
-        const result = await cloudinary.v2.uploader.destroy(
-          event.images[i].public_id
-        );
+      if (event.images && event.images.length > 0) {
+        for (let i = 0; i < event.images.length; i++) {
+          if (event.images[i] && event.images[i].public_id) {
+            await cloudinary.v2.uploader.destroy(event.images[i].public_id);
+          }
+        }
       }
     
-      await  Event.findByIdAndRemove(req.params.id);
+      await Event.findByIdAndRemove(req.params.id);
 
       res.status(201).json({
         success: true,
@@ -113,6 +114,7 @@ router.delete(
     }
   })
 );
+
 
 // all events --- for admin
 router.get(
