@@ -21,7 +21,10 @@ import { toast } from "react-toastify";
 import Ratings from "../../Products/Ratings";
 
 const ProductCard = ({ data,isEvent }) => {
-  const { wishlist } = useSelector((state) => state.wishlist);
+  
+  const { wishlist} = useSelector((state) => state.wishlist);
+  const { seller} = useSelector((state) => state.seller);
+
   const { cart } = useSelector((state) => state.cart);
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
@@ -127,6 +130,7 @@ const ProductCard = ({ data,isEvent }) => {
             color="#333"
             title="Quick view"
           />
+        {seller &&  data.shopId === seller._id ? "" : 
           <AiOutlineShoppingCart
             size={25}
             className="cursor-pointer absolute right-2 top-24"
@@ -134,6 +138,7 @@ const ProductCard = ({ data,isEvent }) => {
             color="#444"
             title="Add to cart"
           />
+        }
           {open ? <ProductDetailsCard setOpen={setOpen} data={data} /> : null}
         </div>
       </div>

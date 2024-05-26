@@ -25,7 +25,7 @@ const AllEvents = () => {
   }
 
   const columns = [
-    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
+    { field: "id", headerName: "event Id", minWidth: 150, flex: 0.7 },
     {
       field: "name",
       headerName: "Name",
@@ -65,7 +65,7 @@ const AllEvents = () => {
         const product_name = d.replace(/\s+/g, "-");
         return (
           <>
-            <Link to={`/product/${product_name}`}>
+            <Link to={`/product/${params.id}?isEvent=true`}>
               <Button>
                 <AiOutlineEye size={20} />
               </Button>
