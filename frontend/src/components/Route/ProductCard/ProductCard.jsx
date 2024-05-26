@@ -105,6 +105,7 @@ const ProductCard = ({ data,isEvent }) => {
         </Link>
 
         {/* side options */}
+        {seller &&  data.shopId === seller._id ? "" : 
         <div>
           {click ? (
             <AiFillHeart
@@ -130,7 +131,7 @@ const ProductCard = ({ data,isEvent }) => {
             color="#333"
             title="Quick view"
           />
-        {seller &&  data.shopId === seller._id ? "" : 
+        
           <AiOutlineShoppingCart
             size={25}
             className="cursor-pointer absolute right-2 top-24"
@@ -138,9 +139,10 @@ const ProductCard = ({ data,isEvent }) => {
             color="#444"
             title="Add to cart"
           />
-        }
+        
           {open ? <ProductDetailsCard setOpen={setOpen} data={data} /> : null}
         </div>
+        }
       </div>
     </>
   );
