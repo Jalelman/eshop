@@ -78,9 +78,11 @@ router.delete(
   "/delete-shop-product/:id",
   isSeller,
   catchAsyncErrors(async (req, res, next) => {
+ 
     try {
+    
       const product = await Product.findById(req.params.id);
-
+      
       if (!product) {
         return next(new ErrorHandler("Product is not found with this id", 404));
       }    
@@ -91,7 +93,7 @@ router.delete(
         );
       }
     
-      await product.remove();
+       await Product.findByIdAndRemove(req.params.id);
 
       res.status(201).json({
         success: true,
